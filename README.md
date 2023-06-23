@@ -19,3 +19,5 @@ Ideally it should be downloaded from some internal server in CI/CD pipeline,
 but as for now for simplicity they are distributed inside repo.
 - SQLSERVER_JAR_PATH=jars/sqljdbc_12.2/enu/mssql-jdbc-12.2.0.jre8.jar
 - POSTGRES_JAR_PATH=jars/postgresql-42.6.0.jar
+
+Local database with data is accessible at `postgres:postgres@localhost:5432`
