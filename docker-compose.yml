@@ -1,0 +1,48 @@
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: postgres.dockerfile
+    image: "postgres-etl"
+    container_name: ${PG_CONTAINER_NAME}
+    environment:
+      POSTGRES_DB: bikeshop_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  etl:
+    build:
+      context: .
+      dockerfile: etl.dockerfile
+    image: "etl"
+    container_name: ${ETL_CONTAINER_NAME}
+    environment:
+      SQLSERVER_HOST: ${SQLSERVER_HOST}
+      SQLSERVER_PORT: ${SQLSERVER_PORT}
+      SQLSERVER_DB_NAME: ${SQLSERVER_DB_NAME}
+      SQLSERVER_USER: ${SQLSERVER_USER}
+      SQLSERVER_PASSWORD: ${SQLSERVER_PASSWORD}
+      SQLSERVER_JAR_PATH: ${SQLSERVER_JAR_PATH}
+
+      POSTGRES_JAR_PATH: ${POSTGRES_JAR_PATH}
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: bikeshop_db
+    depends_on:
+      - postgres
+
+volumes:
+  db:
+    driver: local

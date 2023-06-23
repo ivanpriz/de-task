@@ -1,0 +1,2 @@
+pyspark==3.4.0
+environs==9.5.0

@@ -1,0 +1,83 @@
+from pyspark.sql.types import (
+    StructType,
+    DecimalType,
+    DateType,
+    ShortType,
+    BooleanType,
+    StructField,
+    StringType,
+    IntegerType,
+)
+
+tables_schemas = {
+    "Brands": StructType([
+        StructField("brand_id", IntegerType(), False),
+        StructField("brand_name", StringType()),
+    ]),
+    "Categories": StructType([
+        StructField("category_id", IntegerType(), False),
+        StructField("category_name", StringType()),
+    ]),
+    "Customers": StructType([
+        StructField("customer_id", IntegerType(), False),
+        StructField("first_name", StringType()),
+        StructField("last_name", StringType()),
+        StructField("phone", StringType()),
+        StructField("email", StringType()),
+        StructField("street", StringType()),
+        StructField("city", StringType()),
+        StructField("state", StringType()),
+        StructField("zip_code", IntegerType()),
+    ]),
+    "Stores": StructType([
+        StructField("store_id", IntegerType(), False),
+        StructField("store_name", StringType()),
+        StructField("phone", StringType()),
+        StructField("email", StringType()),
+        StructField("street", StringType()),
+        StructField("city", StringType()),
+        StructField("state", StringType()),
+        StructField("zip_code", IntegerType()),
+    ]),
+    "Staffs": StructType([
+        StructField("staff_id", IntegerType(), False),
+        StructField("first_name", StringType()),
+        StructField("last_name", StringType()),
+        StructField("email", StringType()),
+        StructField("phone", StringType()),
+        StructField("active", BooleanType()),
+        StructField("store_id", IntegerType()),
+        StructField("manager_id", IntegerType())
+    ]),
+    "Orders": StructType([
+        StructField("order_id", IntegerType(), False),
+        StructField("customer_id", IntegerType()),
+        StructField("order_status", IntegerType()),
+        StructField("order_date", DateType()),
+        StructField("required_date", DateType()),
+        StructField("shipped_date", DateType()),
+        StructField("store_id", IntegerType()),
+        StructField("staff_id", IntegerType()),
+    ]),
+    "Products": StructType([
+        StructField("product_id", IntegerType(), False),
+        StructField("product_name", StringType()),
+        StructField("brand_id", IntegerType()),
+        StructField("category_id", IntegerType()),
+        StructField("model_year", ShortType()),
+        StructField("list_price", DecimalType()),
+    ]),
+    "Order_items": StructType([
+        StructField("order_id", IntegerType(), False),
+        StructField("item_id", IntegerType()),
+        StructField("product_id", IntegerType()),
+        StructField("quantity", IntegerType()),
+        StructField("list_price", DecimalType()),
+        StructField("discount", DecimalType()),
+    ]),
+    "Stocks": StructType([
+        StructField("store_id", IntegerType(), False),
+        StructField("product_id", IntegerType()),
+        StructField("quantity", IntegerType()),
+    ]),
+}
